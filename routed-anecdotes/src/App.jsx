@@ -1,6 +1,6 @@
 import {
   BrowserRouter as Router,
-  Routes, Route, Link, useParams
+  Routes, Route, Link, useParams, useNavigate
 } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -34,11 +34,9 @@ const AnecdoteList = ({ anecdotes }) => (
     <h2>Anecdotes</h2>
     <ul>
       {anecdotes.map(anecdote => (
-        <>
-        <Link to={`/anecdotes/${anecdote.id}`}>
-        <li key={anecdote.id} >{anecdote.content}</li>
+        <Link to={`/anecdotes/${anecdote.id}`} key={anecdote.id}>
+        <li  >{anecdote.content}</li>
         </Link>
-        </>
       ))}
     </ul>
   </div>
@@ -66,20 +64,45 @@ const Footer = () => (
   </div>
 )
 
-const CreateNew = (props) => {
+const Notification = ({ message }) => {
+  if (!message) return null
+
+  const style = {
+    border: 'solid',
+    padding: 10,
+    borderWidth: 1,
+    marginBottom: 10,
+    color: 'green'
+  }
+
+  return (
+    <div style={style}>
+      {message}
+    </div>
+  )
+}
+
+const CreateNew = ({ addNew, setNotification }) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
-
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.addNew({
+    
+    addNew({
       content,
       author,
       info,
       votes: 0
     })
+    setNotification(`a new anecdote ${content} created!`)
+  
+  setTimeout(() => {
+    setNotification('')
+  }, 5000)
+    navigate('/')
   }
 
   return (
@@ -150,9 +173,10 @@ const App = () => {
       
       <Router>
         <Menu />
+        <Notification message={notification} />
        <Routes>
          <Route path="/" element={<AnecdoteList anecdotes={anecdotes}/>} />
-         <Route path="/create" element={<CreateNew addNew={addNew}/>} />
+         <Route path="/create" element={<CreateNew addNew={addNew} setNotification={setNotification} />} />
          <Route path="/about" element={<About />} />
          <Route path="/anecdotes/:id" element={<Anecdote anecdote={anecdotes} />} />
        </Routes>

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom"
-import PropTypes from 'prop-types';
 import { useField } from "../hooks";
 
 
@@ -26,6 +25,12 @@ const AnecdoteForm = ({ addNew, setNotification }) => {
     navigate('/')
   }
 
+  const handleReset = () => {
+    content.resetfield()
+    author.resetfield()
+    info.resetfield()
+  }
+
   return (
     <div>
       <h2>create a new anecdote</h2>
@@ -42,16 +47,12 @@ const AnecdoteForm = ({ addNew, setNotification }) => {
           url for more info
           <input {...info} />
         </div>
-        <button>create</button>
+        <button type="submit">create</button>
+        <button type="button" onClick={handleReset}>reset</button>
       </form>
     </div>
   )
 
 }
-
-AnecdoteForm.propTypes = {
-  addNew: PropTypes.func.isRequired,
-  setNotification: PropTypes.func.isRequired,
-};
 
 export default AnecdoteForm

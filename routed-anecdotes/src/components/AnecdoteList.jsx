@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import PropTypes from "prop-types";
 
 const AnecdoteList = ({ anecdotes }) => (
   <div>
@@ -14,8 +13,5 @@ const AnecdoteList = ({ anecdotes }) => (
   </div>
 )
 
-AnecdoteList.propTypes = {
-  anecdotes: PropTypes.func.isRequired,
-};
 
 export default AnecdoteList

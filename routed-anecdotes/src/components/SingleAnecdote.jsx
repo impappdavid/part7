@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom"
-import PropTypes from "prop-types"
 
 const SingleAnecdote = ({anecdote}) => {
  const id = useParams().id
@@ -12,9 +11,5 @@ const SingleAnecdote = ({anecdote}) => {
     </>
   )
 }
-
-SingleAnecdote.propTypes = {
-  anecdote: PropTypes.func.isRequired,
-};
 
 export default SingleAnecdote

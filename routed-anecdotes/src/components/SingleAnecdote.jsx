@@ -8,7 +8,7 @@ const SingleAnecdote = ({anecdote}) => {
     <>
       <strong>{findAnecdote.content}</strong>
       <div>has {findAnecdote.votes} votes</div>
-      <a href={findAnecdote.info} target='__blank'>for more info see {findAnecdote.info}</a>
+      for more info see <a href={findAnecdote.info} target='__blank'>{findAnecdote.info}</a>
     </>
   )
 }

@@ -17,6 +17,7 @@ import {
 import UsersList from "./components/UserList";
 import { initializeUsers } from './reducers/usersReducer'
 import User from "./components/User";
+import BlogView from "./components/BlogView";
 
 const App = () => {
   const blogs = useSelector(state => state.blogs)
@@ -87,6 +88,7 @@ const App = () => {
           <CreateBlogForm createBlog={createBlog} />
         </Togglable>
         {blogs.map((blog) => (
+          <Link to={`/blogs/${blog.id}`}>
           <Blog
             key={blog.id}
             blog={blog}
@@ -94,6 +96,7 @@ const App = () => {
             handleRemove={handleRemove}
             user={user}
           />
+          </Link>
         ))}
       </>
     );
@@ -120,6 +123,7 @@ const App = () => {
           
           <Route path="/users" element={<UsersList />} />
           <Route path="/users/:id" element={<User />} />
+          <Route path="/blogs/:id" element={<BlogView />} />
         </Routes>
       </div>
     )}

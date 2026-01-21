@@ -10,6 +10,12 @@ import { useSelector } from 'react-redux'
 import { showNotification } from "./reducers/notificationReducer";
 import BlogNotification from "./components/Notifications";
 import { initializeUser, logoutUser } from "./reducers/userReducer";
+import {
+  BrowserRouter as Router,
+  Routes, Route, Link
+} from 'react-router-dom'
+import UsersList from "./components/UserList";
+import { initializeUsers } from './reducers/usersReducer'
 
 const App = () => {
   const blogs = useSelector(state => state.blogs)
@@ -28,6 +34,10 @@ const App = () => {
   useEffect(() => {
     dispatch(initializeUser())
   }, [dispatch]);
+
+  useEffect(() => {
+  dispatch(initializeUsers())
+}, [dispatch])
 
   const createBlog = async (blogObject) => {
     try {
@@ -61,19 +71,17 @@ const App = () => {
     }
   };
 
-  const showBlogs = () => {
-    const handleLogout = () => {
+  const handleLogout = () => {
       window.localStorage.removeItem("loggedBlogappUser");
       dispatch(logoutUser())
     };
 
+  const showBlogs = () => {
+    
+
     return (
       <>
-        <h2>blogs</h2>
-        <div>
-          <p>{user.name} logged in</p>
-          <button onClick={handleLogout}>logout</button>
-        </div>
+        
         <Togglable buttonLabel="create new blog" ref={noteFormRef}>
           <CreateBlogForm createBlog={createBlog} />
         </Togglable>
@@ -90,15 +98,31 @@ const App = () => {
     );
   };
 
+  
+
   return (
     <div>
-      
-      {!user && (
-        <LoginForm />
-      )}
-      <BlogNotification />
-      {user && <div>{showBlogs()}</div>}
-    </div>
+    <BlogNotification />
+    
+    {!user ? (
+      <LoginForm />
+    ) : (
+      <div>
+        
+        <h2>blogs</h2>
+        <div>
+          <p>{user.name} logged in</p>
+          <button onClick={handleLogout}>logout</button>
+        </div>
+        <Routes>
+          <Route path="/" element={showBlogs()} />
+          
+          <Route path="/users" element={<UsersList />} />
+        </Routes>
+      </div>
+    )}
+  </div>
+    
   );
 };
 

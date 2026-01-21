@@ -36,7 +36,7 @@ const Blog = ({ blog, handleLike, handleRemove, user }) => {
           </p>
           <p>{blog.author}</p>
 
-          {blog.user && user && blog.user.username === user.username && (
+          { user && blog.user.username === user.username && (
             <button
               style={{ backgroundColor: "lightblue" }}
               onClick={() => handleRemove(blog)}

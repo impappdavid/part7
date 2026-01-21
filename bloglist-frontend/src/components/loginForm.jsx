@@ -1,28 +1,28 @@
 import { useState } from "react";
-import loginService from "../services/login";
-import blogService from "../services/blogs";
+import { loginUser } from "../reducers/userReducer";
+import { useDispatch } from 'react-redux'
+import { showNotification } from "../reducers/notificationReducer";
 
-const LoginForm = ({ setUser, setErrorMessage }) => {
+const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch()
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
     try {
-      const user = await loginService.login({ username, password });
-
-      window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
-
-      setUser(user);
-      blogService.setToken(user.token);
+      // Dispatch the thunk action. It handles the API call, 
+      // localStorage, and setting the token automatically.
+      await dispatch(loginUser(username, password));
+      
       setUsername("");
       setPassword("");
-    } catch {
-      setErrorMessage("wrong username or password");
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
+      dispatch(showNotification(`Welcome!`, 5));
+    } catch (error) {
+      // If the loginService.login fails, it will catch here
+      dispatch(showNotification(`wrong username or password ${error.message}`, 5));
     }
   };
 

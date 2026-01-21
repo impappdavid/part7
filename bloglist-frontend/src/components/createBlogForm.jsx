@@ -8,7 +8,6 @@ const CreateBlogForm = ({ createBlog }) => {
   const handleCreateBlog = (event) => {
     event.preventDefault();
 
-    // Calls the function passed from App
     createBlog({
       title: title,
       author: author,

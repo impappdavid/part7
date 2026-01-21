@@ -6,7 +6,6 @@
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-
 }
 .error {
   color: red;
@@ -18,11 +17,11 @@
   margin-bottom: 10px;
 }
 
-.blog{
-    border: 1px solid black;
-    padding-top: 10;
-    padding-left: 2;
-    border: 'solid';
-    border-width: 1;
-    margin-bottom: 5;
+.blog {
+  border: 1px solid black;
+  padding-top: 10;
+  padding-left: 2;
+  border: "solid";
+  border-width: 1;
+  margin-bottom: 5;
 }

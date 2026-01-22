@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import blogService from '../services/blogs'
+import { Form, Button } from 'react-bootstrap'
 
 const Comments = ({ blog }) => {
   const [comment, setComment] = useState('')
@@ -20,14 +21,14 @@ const Comments = ({ blog }) => {
   return (
     <div>
       <h3>comments</h3>
-      <form onSubmit={handleAddComment}>
-        <input
+      <Form onSubmit={handleAddComment}>
+        <Form.Control
           value={comment}
           onChange={({ target }) => setComment(target.value)}
           placeholder="write a comment..."
         />
-        <button type="submit">add comment</button>
-      </form>
+        <Button type="submit">add comment</Button>
+      </Form>
       <ul>
         {comments.map((c) => (
           <li key={c.id || Math.random()}>{c.comment}</li>

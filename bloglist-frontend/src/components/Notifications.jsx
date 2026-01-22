@@ -1,20 +1,14 @@
 import { useSelector } from 'react-redux'
+import { Alert } from 'react-bootstrap'
 
 const BlogNotification = () => {
   const notification = useSelector(state => state.notifications)
-
-  const style = {
-    border: 'solid',
-    padding: 10,
-    borderWidth: 1,
-    marginBottom: 10
-  }
 
   if (!notification) {
     return null
   }
 
-  return <div style={style}>{notification}</div>
+  return <Alert variant="success">{notification}</Alert>
 }
 
 export default BlogNotification

@@ -89,7 +89,7 @@ const App = () => {
           <CreateBlogForm createBlog={createBlog} />
         </Togglable>
         {blogs.map((blog) => (
-          <Link to={`/blogs/${blog.id}`}>
+          <Link to={`/blogs/${blog.id}`} key={blog.id}>
           <Blog
             key={blog.id}
             blog={blog}
@@ -106,7 +106,7 @@ const App = () => {
   
 
   return (
-    <div>
+    <div className="container">
     <BlogNotification />
     
     {!user ? (

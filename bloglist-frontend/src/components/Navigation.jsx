@@ -1,30 +1,27 @@
 import { useSelector } from 'react-redux'
-import {
-  BrowserRouter as Router,
-  Routes, Route, Link
-} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Navbar, Button, Nav } from 'react-bootstrap'
+
 
 const Navigation = ({handleLogout}) => {
     const user = useSelector(state => state.user)
     console.log(user)
 
-    const mystyle = {
-      color: "white",
-      backgroundColor: "gray",
-      display:"flex",
-      gap: '5px 10px',
-      padding: "10px",
-      fontFamily: "Arial"
-    };
-
     return(
         <>
-            <nav style={mystyle}>
-                <Link to={'/blogs'}>blogs</Link>
-                <Link to={'/users'}>users</Link>
-                <div>{user.username} logged in</div>
-                <button onClick={handleLogout}>logout</button>
-            </nav>
+            <Navbar className='d-flex gap-2'>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav.Link href="#" as="span">
+                    <Link to={'/'}>blogs</Link>
+                    </Nav.Link>
+                    <Nav.Link href="#" as="span">
+                    <Link to={'/users'}>users</Link>
+                    </Nav.Link>
+                    <div>{user.username} logged in</div>
+                    <Button onClick={handleLogout}>logout</Button>
+                </Navbar.Collapse>
+            </Navbar>
         </>
     )
 }

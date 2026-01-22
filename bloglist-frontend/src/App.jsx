@@ -18,6 +18,7 @@ import UsersList from "./components/UserList";
 import { initializeUsers } from './reducers/usersReducer'
 import User from "./components/User";
 import BlogView from "./components/BlogView";
+import Navigation from "./components/Navigation";
 
 const App = () => {
   const blogs = useSelector(state => state.blogs)
@@ -112,13 +113,10 @@ const App = () => {
       <LoginForm />
     ) : (
       <div>
-        
-        <h2>blogs</h2>
-        <div>
-          <p>{user.name} logged in</p>
-          <button onClick={handleLogout}>logout</button>
-        </div>
+        <Navigation handleLogout={handleLogout}/>
+        <h1 className="">Blog App</h1>
         <Routes>
+          
           <Route path="/" element={showBlogs()} />
           
           <Route path="/users" element={<UsersList />} />
